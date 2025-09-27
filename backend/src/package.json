@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "vite",       
-    "build": "vite build", 
-    "preview": "vite preview" 
+    "strart": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,9 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "mongodb": "^6.20.0",
-    "mongoose": "^8.18.1"
+    "mongoose": "^8.18.1",
+    "otp-generator": "^4.0.1",
+    "twilio": "^5.10.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
