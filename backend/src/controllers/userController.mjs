@@ -32,7 +32,7 @@ const signUp = async (req, res) => {
             var accountSid = process.env.TWILIO_ACCOUNT_SID
             var authToken = process.env.TWILIO_AUTH_TOKEN;
             const client = Twilio(accountSid, authToken,{
-                logLevel: "debug";
+                logLevel: "debug"
             });
 
             // const user = await User.save(dataTosave,{lean:true},{new:true});
