@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import router from "./routes/userRoute.mjs";
-
+console.log("index.js started===========")
 dotenv.config();
 const app = express();
 //middleware allows json and cross origin requests

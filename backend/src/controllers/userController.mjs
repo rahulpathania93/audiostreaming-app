@@ -135,5 +135,51 @@ const generateToken = (userId) => {
     return token
 };
 
+const signIn = async(req, res, next)=>{
+    try{
+        const phone = req.body.phone
+        const user = await User.findOne({phone:phone})
+        console.log("user",user)
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const dataTosave = {
+                        
+                        otpExpireAt: new Date(Date.now() + 45 * 60 * 1000)
+                    }
+        const generateOTP = otpGenerator.generate(4, { upperCaseAlphabets: false, specialChars: false });
+
+        dataTosave.otp = generateOTP
+        const saveUser = await User.updateOne({ "_id": user._id }, {
+            dataTosave
+        })            
+        console.log("saveUser-------",saveUser)
+        var accountSid = process.env.TWILIO_ACCOUNT_SID
+                    var authToken = process.env.TWILIO_AUTH_TOKEN;
+                    const client = Twilio(accountSid, authToken, {
+                        logLevel: "debug",
+                        region: "us1",
+                        edge: "singapore"
+
+                    });
+
+                    const message = client.messages.create({
+                        messagingServiceSid: process.env.MessagingServiceSid,
+                        body: `Your OTP is ${generateOTP}`,
+
+                        to: "+917042754766"
+                    }).then((message) => { console.log("message sent successfully", message) })
+                        .catch((error) => {
+                            console.log("error", error)
+                    })
+        next();
+    }
+    catch(error){
+        console.error("SignIn error:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
 // export default signUp
-export default verifyOtp
+// export default verifyOtp
+export default signIn
