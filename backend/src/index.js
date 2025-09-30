@@ -15,7 +15,8 @@ console.log(process.env.PORT);
 app.get("/",(req,res)=>{console.log("get route started")
     res.send("backend is working");
 })
-app.use("/register",router);
+// app.use("/register",router);
+app.use("/",router);
 
 
 mongoose.connect(process.env.MONGO_URI || "")

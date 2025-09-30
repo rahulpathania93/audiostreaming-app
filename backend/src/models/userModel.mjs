@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 // import { type } from "os";
 
 const userSchema = new mongoose.Schema({
+    //  id: { type: mongoose.Schema.Types.ObjectId, 
+    //     required: true },
     name:{
         type: String,
         required: true
@@ -24,12 +26,22 @@ const userSchema = new mongoose.Schema({
     },
     otpExpireAt: {
         type: Date,
-        required:true
+        default: Date.now,
+        // index: {
+        //     expires: '45m'
+        // }
+    
     },
     isVerified: {
         type: Boolean,
         default: false
-    }
+    },
+    
+        token:{
+            type:String
+            // required: true
+        }
+    
 },{timestamps: true});
 
 const User = mongoose.model('User', userSchema);
